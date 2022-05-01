@@ -41,13 +41,12 @@ Vous êtes libre de faire l'exercice de vous auto-évaluer en remplissant la gri
 |                 | (#2) Analyse des défauts du code légataire | /10   |
 |                 | (#3) Justification des choix de conception | /15   |
 |                 | (#4) Évolution du code objet               | /5    |
-|  _Modèles_      | Justesse & Pertinence de la conception     | /10   |
+|  _Modèles_      | Justesse & Pertinence de la conception     | /15   |
 |                 | Cohérence inter-modèles                    | /5    |
-|                 | Respect des principes de conception        | /10   |
+|                 | Respect des principes de conception        | /15   |
 |  _Code_         | Qualité du code Java et du dépôt Git       | /10   |
 |                 | Cohérence du code avec les modèles         | /10   | 
-|                 | Qualité des tests                          | /10   | 
-|  _Autres exigences_ | Java11+ et GitLab-CI                  | /10   |
+|                 | Qualité des tests                          | /10   |  
 | **Note Finale** |                                            | /100  | 
 
 _Cette auto-évaluation permet au correcteur de vous donner une rétro-action plus personnalisée en pointant les critères sur lesquels vous vous sur-évaluez et ceux sur lesquels au contraire vous vous sous-évaluez._
