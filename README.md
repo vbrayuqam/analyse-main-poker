@@ -11,9 +11,11 @@ Les tailles de réponses sont données à titre indicatif, mais il est clair qu'
 ### Question 1: Évolution du code légataire
 
    1. Pouvoir détecter plus de combinaisons que les trois combinaisons actuelles.
+---
 Pour implémenter de nouvelles combinaisons dans le code, je commencerais par créer une classe *Combinaison*. Ensuite pour ajouter de nouvelles combinaisons, je peux créer de nouvelles classes qui hérite de celle-ci et qui contiennent la logique d'affaire de la combinaison réprésentée par la classe. Par exemple, la classe *Brelan* hériterais de la classe *Combinaison*. Une classe *Verificateur* pourrait contenir un tableau de multiples objets *Combinaison* et vérifier si les combinaisons se retrouvent dans une main.
 
    2. Pouvoir arbitrer des parties à plus de deux joueurs.
+---
 Pour pourvoir arbitrer des parties à plus de deux joueurs, je commencerais par créer une classe *Joueur* et une classe *Main*. Chaque objet *Joueur* contiendrais donc un objet *Main*. Cette main contiendrait quand à elle de multiples objets *Carte*. Dépendant de l'entrée donner au programme, le bon nombre de joueur sera créer lors de l'invocation de celui-ci, à la suite de quoi, la logique d'affaire sera appliqué sur la main de chaque joueur.
 
 ### Question 2: Analyse des défauts du code légataire
