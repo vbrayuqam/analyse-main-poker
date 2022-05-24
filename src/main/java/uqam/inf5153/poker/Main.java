@@ -9,6 +9,7 @@ public class Main {
 
     // The result of the game
     static String result;
+    public static final String PLAYER_NAME = "P";
 
     /**
      * The main function. If no arguments given, we will use stdin to read the data.
@@ -16,19 +17,25 @@ public class Main {
      */
     public static void main(String[] args) {
         // Variables initialization
-        String[] p1, p2;
+        List<Player> players =  new ArrayList<Player>();
+
+        //Generate players
+        for (int i = 1; i <= args.length; i++) {
+            players.add(new Player(PLAYER_NAME + i));
+        }
+
         // Data origin
         if (args.length == 2) {
             // Use the given arguments as data
-            p1 = str2Array(args[0].trim().toUpperCase());
-            p2 = str2Array(args[1].trim().toUpperCase());
+            players.get(0).setHand(str2Array(args[0].trim().toUpperCase()));
+            players.get(1).setHand(str2Array(args[1].trim().toUpperCase()));
         } else {
             // Read the data from stdin
             Scanner sc = new Scanner(System.in);
             System.out.print("p1? ");
-            p1 = str2Array(sc.nextLine().trim().toUpperCase());
+            players.get(0).setHand(str2Array(args[0].trim().toUpperCase()));
             System.out.print("p2? ");
-            p2 = str2Array(sc.nextLine().trim().toUpperCase());
+            players.get(1).setHand(str2Array(args[1].trim().toUpperCase()));
             sc.close();
         }
         // Check if error in the data
@@ -37,7 +44,7 @@ public class Main {
             return;
         }
         // Do the comparison and store the result
-        result = comp(findComb(p1), findComb(p2));
+        result = comp(findComb(players.get(0).getHand()), findComb(players.get(1).getHand()));
         //Display the winner.
         System.out.println("Result: " + result);
     }
