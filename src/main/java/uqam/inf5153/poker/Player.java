@@ -2,17 +2,19 @@ package uqam.inf5153.poker;
 
 public class Player {
     private String name;
-    private String[] hand;
+    private Hand hand;
 
     public Player(String name) {
         this.name = name;
+        this.hand = new Hand();
     }
 
-    public void setHand(String[] hand) {
-        this.hand = hand;
+    public void takeCard(Card card) {
+        this.hand.addCard(card);
     }
 
-    public String[] getHand() {
-        return hand;
+    @Override
+    public String toString() {
+        return hand.toString();
     }
 }

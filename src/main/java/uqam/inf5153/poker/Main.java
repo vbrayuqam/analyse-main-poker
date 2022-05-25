@@ -1,5 +1,4 @@
 package uqam.inf5153.poker;
-
 import java.util.*;
 
 /**
@@ -9,44 +8,154 @@ public class Main {
 
     // The result of the game
     static String result;
-    public static final String PLAYER_NAME = "P";
+
 
     /**
      * The main function. If no arguments given, we will use stdin to read the data.
-     * @param args the arguments (the two hands).
+     * @param args the arguments (the variable number of hands).
      */
     public static void main(String[] args) {
-        // Variables initialization
         List<Player> players =  new ArrayList<Player>();
 
-        //Generate players
-        for (int i = 1; i <= args.length; i++) {
-            players.add(new Player(PLAYER_NAME + i));
+        // Determine number of players and initiate them
+        if (args.length != 0) {
+            players = generatePlayersFromArguments(args);
+        } else {
+            players = generatePlayersFromInput();
         }
 
-        // Data origin
-        if (args.length == 2) {
-            // Use the given arguments as data
-            players.get(0).setHand(str2Array(args[0].trim().toUpperCase()));
-            players.get(1).setHand(str2Array(args[1].trim().toUpperCase()));
-        } else {
-            // Read the data from stdin
-            Scanner sc = new Scanner(System.in);
-            System.out.print("p1? ");
-            players.get(0).setHand(str2Array(args[0].trim().toUpperCase()));
-            System.out.print("p2? ");
-            players.get(1).setHand(str2Array(args[1].trim().toUpperCase()));
-            sc.close();
+        // Safeproofing
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println(players.get(i));
         }
+
+
+
+
         // Check if error in the data
-        if(result != null && result.equals("ERROR")) {
-            System.out.println("Result: " + result);
-            return;
-        }
+        //if(result != null && result.equals("ERROR")) {
+        //    System.out.println("Result: " + result);
+        //    return;
+        //}
         // Do the comparison and store the result
-        result = comp(findComb(players.get(0).getHand()), findComb(players.get(1).getHand()));
+        //result = comp(findComb(players.get(0).getHand()), findComb(players.get(1).getHand()));
         //Display the winner.
-        System.out.println("Result: " + result);
+        //System.out.println("Result: " + result);
+    }
+
+    private static List<Player> generatePlayersFromArguments(String[] args) {
+        List<Player> players =  new ArrayList<Player>();
+
+        for (int i = 0; i < args.length; i++) {
+            players.add(new Player(Language.PLAYER_NAME + (i + 1)));
+            String [] textCards = str2Array(args[i].trim().toUpperCase());
+            for (int j = 0; j < textCards.length; j++) {
+                players.get(i).takeCard(createCard(textCards[j]));
+            }
+        }
+
+        return players;
+    }
+
+    private static List<Player> generatePlayersFromInput() {
+        List<Player> players =  new ArrayList<Player>();
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print(Language.PLAYER_NUMBER_QUERY);
+        int numPlayers = sc.nextInt();
+        sc.nextLine();
+
+        for (int i = 0; i < numPlayers; i++) {
+            System.out.print(Language.PLAYER_NAME + (i + 1) + Language.PLAYER_HAND_QUERY);
+            String [] textCards = str2Array(sc.nextLine().trim().toUpperCase());
+            players.add(new Player(Language.PLAYER_NAME + (i + 1)));
+            for (int j = 0; j < textCards.length; j++) {
+                players.get(i).takeCard(createCard(textCards[j]));
+            }
+        }
+
+        sc.close();
+        return players;
+    }
+
+    private static Card createCard(String textCard) {
+        char valueChar = textCard.charAt(0);
+        char colorChar = textCard.charAt(1);
+
+        Color color = extractColor(colorChar);
+        Value value = extractValue(valueChar);
+
+        return new Card(color, value);
+    }
+
+    private static Color extractColor(char colorChar) {
+        Color color;
+        switch (colorChar) {
+            case 'H':
+                color = Color.HEARTS;
+                break;
+            case 'C':
+                color = Color.CLUBS;
+                break;
+            case 'D':
+                color = Color.DIAMONDS;
+                break;
+            case 'S':
+                color = Color.SPADES;
+                break;
+            default :
+                color = Color.INCORRECT;
+        }
+        return color;
+    }
+
+    private static Value extractValue(char valueChar) {
+        Value value = null;
+        switch (valueChar)
+        {
+            case '1':
+                value = Value.ACE;
+                break;
+            case '2':
+                value = Value.TWO;
+                break;
+            case '3':
+                value = Value.THREE;
+                break;
+            case '4':
+                value = Value.FOUR;
+                break;
+            case '5':
+                value = Value.FIVE;
+                break;
+            case '6':
+                value = Value.SIX;
+                break;
+            case '7':
+                value = Value.SEVEN;
+                break;
+            case '8':
+                value = Value.EIGHT;
+                break;
+            case '9':
+                value = Value.NINE;
+                break;
+            case 'T':
+                value = Value.TEN;
+                break;
+            case 'J':
+                value = Value.JACK;
+                break;
+            case 'Q':
+                value = Value.QUEEN;
+                break;
+            case 'K':
+                value = Value.KING;
+                break;
+            default :
+                value = Value.INCORRECT;
+        }
+        return value;
     }
 
     /**
