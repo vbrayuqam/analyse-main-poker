@@ -7,40 +7,72 @@ import java.util.*;
 public class Main {
 
     // The result of the game
-    static String result;
 
+    static String endMessage = "AIM FOR THE EYE BOO, AIM FOR THE EEEEEEEEYES";
 
     /**
      * The main function. If no arguments given, we will use stdin to read the data.
      * @param args the arguments (the variable number of hands).
      */
     public static void main(String[] args) {
-        List<Player> players =  new ArrayList<Player>();
+        // Initialisation of the variables
+        ErrorHandler errorHandler = new ErrorHandler();
+        List<Player> players;
+        GameState gameState;
 
-        // Determine number of players and initiate them
+        // Determine the number of players and initiate them
         if (args.length != 0) {
             players = generatePlayersFromArguments(args);
         } else {
             players = generatePlayersFromInput();
         }
 
-        // Safeproofing
-        for (int i = 0; i < players.size(); i++) {
-            System.out.println(players.get(i));
+        // Verify if the game is valid
+        gameState = determineGameValidity(players, errorHandler);
+
+        // If valid proceed to analyze the combinations, if not query the error handler
+        if (gameState == GameState.VALID) {
+
+            // Do the comparison and store the result
+            //result = comp(findComb(players.get(0).getHand()), findComb(players.get(1).getHand()));
+            //Display the winner.
+            //System.out.println("Result: " + result);
+
+        } else {
+            endMessage = errorHandler.getErrorMsg();
         }
 
+        System.out.println(endMessage);
+    }
 
+    private static GameState determineGameValidity(List<Player> players, ErrorHandler eh) {
+        GameState gameState = GameState.VALID;
+        int numplayers = players.size();
 
+        for (int i = 0; i < numplayers; i++) {
+            Player currentPlayer = players.get(i);
 
-        // Check if error in the data
-        //if(result != null && result.equals("ERROR")) {
-        //    System.out.println("Result: " + result);
-        //    return;
-        //}
-        // Do the comparison and store the result
-        //result = comp(findComb(players.get(0).getHand()), findComb(players.get(1).getHand()));
-        //Display the winner.
-        //System.out.println("Result: " + result);
+            if (eh.verifyBigHand(currentPlayer)) {
+                gameState = GameState.INVALID;
+            }
+
+            if(eh.verifySmallHand(currentPlayer)) {
+                gameState = GameState.INVALID;
+            }
+
+            if(eh.verifyColor(currentPlayer)) {
+                gameState = GameState.INVALID;
+            }
+
+            if(eh.verifyValue(currentPlayer)) {
+                gameState = GameState.INVALID;
+            }
+
+            if (eh.verifyCheating(currentPlayer)) {
+                gameState = GameState.INVALID;
+            }
+        }
+        return gameState;
     }
 
     private static List<Player> generatePlayersFromArguments(String[] args) {
@@ -48,9 +80,9 @@ public class Main {
 
         for (int i = 0; i < args.length; i++) {
             players.add(new Player(Language.PLAYER_NAME + (i + 1)));
-            String [] textCards = str2Array(args[i].trim().toUpperCase());
+            String [] textCards = stringToArray(args[i].trim().toUpperCase());
             for (int j = 0; j < textCards.length; j++) {
-                players.get(i).takeCard(createCard(textCards[j]));
+                players.get(i).takeCard(new Card(textCards[j]));
             }
         }
 
@@ -67,10 +99,10 @@ public class Main {
 
         for (int i = 0; i < numPlayers; i++) {
             System.out.print(Language.PLAYER_NAME + (i + 1) + Language.PLAYER_HAND_QUERY);
-            String [] textCards = str2Array(sc.nextLine().trim().toUpperCase());
+            String [] textCards = stringToArray(sc.nextLine().trim().toUpperCase());
             players.add(new Player(Language.PLAYER_NAME + (i + 1)));
             for (int j = 0; j < textCards.length; j++) {
-                players.get(i).takeCard(createCard(textCards[j]));
+                players.get(i).takeCard(new Card(textCards[j]));
             }
         }
 
@@ -78,107 +110,14 @@ public class Main {
         return players;
     }
 
-    private static Card createCard(String textCard) {
-        char valueChar = textCard.charAt(0);
-        char colorChar = textCard.charAt(1);
-
-        Color color = extractColor(colorChar);
-        Value value = extractValue(valueChar);
-
-        return new Card(color, value);
-    }
-
-    private static Color extractColor(char colorChar) {
-        Color color;
-        switch (colorChar) {
-            case 'H':
-                color = Color.HEARTS;
-                break;
-            case 'C':
-                color = Color.CLUBS;
-                break;
-            case 'D':
-                color = Color.DIAMONDS;
-                break;
-            case 'S':
-                color = Color.SPADES;
-                break;
-            default :
-                color = Color.INCORRECT;
-        }
-        return color;
-    }
-
-    private static Value extractValue(char valueChar) {
-        Value value = null;
-        switch (valueChar)
-        {
-            case '1':
-                value = Value.ACE;
-                break;
-            case '2':
-                value = Value.TWO;
-                break;
-            case '3':
-                value = Value.THREE;
-                break;
-            case '4':
-                value = Value.FOUR;
-                break;
-            case '5':
-                value = Value.FIVE;
-                break;
-            case '6':
-                value = Value.SIX;
-                break;
-            case '7':
-                value = Value.SEVEN;
-                break;
-            case '8':
-                value = Value.EIGHT;
-                break;
-            case '9':
-                value = Value.NINE;
-                break;
-            case 'T':
-                value = Value.TEN;
-                break;
-            case 'J':
-                value = Value.JACK;
-                break;
-            case 'Q':
-                value = Value.QUEEN;
-                break;
-            case 'K':
-                value = Value.KING;
-                break;
-            default :
-                value = Value.INCORRECT;
-        }
-        return value;
-    }
-
     /**
-     * Transform a data String into an array of Strings. Handle errors if not containing 5 cards,
-     * or of a card is not a regular one (not a good value, not a good suit). If encountering an
-     * error, we store "ERROR" in the result string.
+     * Transform a data String into an array of Strings.
      * @param s the hand of the player, e.g., "1C 2C TD JH JS"
      * @return the hand as separated card encoded as strings, ["1C", "2C", "TD", "JH", "JS"]
      */
-    private static String[] str2Array(String s) {
-        Character[] vSymb = { '1', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' };
-        Set<Character> vs = new HashSet<>(Arrays.asList(vSymb));
-        Character[] sSymb = { 'C', 'D', 'H', 'S' };
-        Set<Character> ss = new HashSet<>(Arrays.asList(sSymb));
+    private static String[] stringToArray(String s) {
         String[] data = s.split(" ");
-        if (data.length != 5)
-            result = "ERROR";
-        for(String d: data) {
-            if(d.length() != 2)
-                result = "ERROR";
-            if(!vs.contains(d.charAt(0)) || !ss.contains(d.charAt(1)))
-                result = "ERROR";
-        }
+
         return data;
     }
 
