@@ -1,15 +1,30 @@
 package uqam.inf5153.poker;
 
-import com.sun.org.apache.bcel.internal.generic.FLOAD;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class RulesHandler {
     private List<Combination> combinations;
+    private String endState;
 
     public RulesHandler() {
         combinations = new ArrayList<Combination>();
+        endState = "";
+    }
+
+    public void determineEndstate(List<Player> players) {
+        int numPlayers = players.size();
+        for(int i = 0; i < numPlayers; i++) {
+            endState += players.get(i).getName() + Language.PLAYER_HAS + this.combinations.get(i).toString();
+        }
+    }
+
+    public void determineWinner(List<Player> players) {
+        // Stuff
+    }
+
+    public String getEndState() {
+        return this.endState;
     }
 
     public void findStrongestCombination(Player player) {
@@ -30,8 +45,6 @@ public class RulesHandler {
 
 
         this.combinations.add(currentCombination);
-
-        System.out.println(currentCombination);
     }
 
     private HighVal extractHighVal(Hand hand) {
@@ -79,7 +92,7 @@ public class RulesHandler {
                 Card secondCard = hand.getCard(j);
 
                 if (firstCard.getValue().compareTo(secondCard.getValue()) == 0 ) {
-                    if (pairFound == false || valueFound.compareTo(firstCard.getValue()) < 0) {
+                    if (!pairFound || valueFound.compareTo(firstCard.getValue()) < 0) {
                         pair.setFirstCard(firstCard);
                         pair.setSecondCard(secondCard);
                         pairFound = true;
@@ -105,11 +118,14 @@ public class RulesHandler {
                 break;
             }
         }
-        
+
         return isFlush;
     }
 
     private Flush extractFlush(Hand hand) {
-        return new Flush(hand);
+        Card card = hand.getCard(0);
+        Color color = card.getColor();
+
+        return new Flush(hand, color);
     }
 }

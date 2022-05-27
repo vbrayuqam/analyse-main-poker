@@ -9,6 +9,6 @@ public class HighVal extends Combination{
 
     @Override
     public String toString() {
-        return this.card.toString();
+        return Language.HIGH_VAL + card.getValue() + Language.DOT;
     }
 }

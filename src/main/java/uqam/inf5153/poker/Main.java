@@ -15,44 +15,39 @@ public class Main {
      * @param args the arguments (the variable number of hands).
      */
     public static void main(String[] args) {
-        // Initialisation of the variables
         RulesHandler rulesHandler = new RulesHandler();
         ErrorHandler errorHandler = new ErrorHandler();
         List<Player> players;
         GameState gameState;
 
-        // Determine the number of players and initiate them
         if (args.length != 0) {
             players = generatePlayersFromArguments(args);
         } else {
             players = generatePlayersFromInput();
         }
 
-        // Verify if the game is valid
         gameState = determineGameValidity(players, errorHandler);
 
-        // If valid proceed query the rules handler, if not query the error handler
         if (gameState == GameState.VALID) {
             endMessage = determineEndgameState(players, rulesHandler);
         } else {
             endMessage = errorHandler.getErrorMsg();
         }
 
-        // Output the result of the query
         System.out.println(endMessage);
     }
 
     private static String determineEndgameState(List<Player> players, RulesHandler rh) {
-        String endgameState = "TOASTIE";
+        String endgameState;
         int numPlayers = players.size();
 
         for (int i = 0; i < numPlayers; i++) {
             rh.findStrongestCombination(players.get(i));
-
         }
 
-        // Compare those combinations
-        // Build endstate
+        rh.determineEndstate(players);
+        rh.determineWinner(players);
+        endgameState = rh.getEndState();
 
         return endgameState;
     }
@@ -131,8 +126,6 @@ public class Main {
      * @return the hand as separated card encoded as strings, ["1C", "2C", "TD", "JH", "JS"]
      */
     private static String[] stringToArray(String s) {
-        String[] data = s.split(" ");
-
-        return data;
+        return s.split(" ");
     }
 }

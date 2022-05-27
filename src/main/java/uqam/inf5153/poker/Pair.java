@@ -25,6 +25,6 @@ public class Pair extends Combination{
 
     @Override
     public String toString() {
-        return this.firstCard.toString() + this.secondCard.toString();
+        return Language.PAIR + firstCard.getValue().toString() + Language.DOT;
     }
 }
