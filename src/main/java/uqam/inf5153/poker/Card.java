@@ -3,10 +3,12 @@ package uqam.inf5153.poker;
 public class Card {
     private Color color;
     private Value value;
+    private int strength;
 
     public Card(String textCard) {
         this.color = extractColor(textCard.charAt(1));
         this.value = extractValue(textCard.charAt(0));
+        this.strength = extractStrength(textCard.charAt(0));
     }
 
     public Color getColor() {
@@ -15,6 +17,10 @@ public class Card {
 
     public Value getValue() {
         return value;
+    }
+
+    public int getStrength() {
+        return strength;
     }
 
     @Override
@@ -91,5 +97,54 @@ public class Card {
                 value = Value.INCORRECT;
         }
         return value;
+    }
+
+    private int extractStrength(char valueChar) {
+        int strength;
+        switch (valueChar)
+        {
+            case '1':
+                strength = 1;
+                break;
+            case '2':
+                strength = 2;
+                break;
+            case '3':
+                strength = 3;
+                break;
+            case '4':
+                strength = 4;
+                break;
+            case '5':
+                strength = 5;
+                break;
+            case '6':
+                strength = 6;
+                break;
+            case '7':
+                strength = 7;
+                break;
+            case '8':
+                strength = 8;
+                break;
+            case '9':
+                strength = 9;
+                break;
+            case 'T':
+                strength = 10;
+                break;
+            case 'J':
+                strength = 11;
+                break;
+            case 'Q':
+                strength = 12;
+                break;
+            case 'K':
+                strength = 13;
+                break;
+            default :
+                strength = 0;
+        }
+        return strength;
     }
 }

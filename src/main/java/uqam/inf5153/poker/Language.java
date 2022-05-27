@@ -13,8 +13,9 @@ public class Language {
     public static final String PLAYER_HAS = " had a ";
     public static final String FLUSH = "flush of ";
     public static final String PAIR = "pair of ";
-    public static final String HIGH_VAL = "card with the value of ";
+    public static final String HIGH_VAL = "";
     public static final String DOT = ". ";
+    public static final String EXCLAMATION = "! ";
     public static final String WINNER = "\nHence, the winner is ";
-
+    public static final String TIE = "\nHence, the game ends in a tie";
 }

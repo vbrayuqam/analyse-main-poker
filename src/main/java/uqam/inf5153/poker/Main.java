@@ -38,7 +38,7 @@ public class Main {
     }
 
     private static String determineEndgameState(List<Player> players, RulesHandler rh) {
-        String endgameState;
+        String endgame;
         int numPlayers = players.size();
 
         for (int i = 0; i < numPlayers; i++) {
@@ -47,9 +47,9 @@ public class Main {
 
         rh.determineEndstate(players);
         rh.determineWinner(players);
-        endgameState = rh.getEndState();
+        endgame = rh.getEndgame();
 
-        return endgameState;
+        return endgame;
     }
 
     private static GameState determineGameValidity(List<Player> players, ErrorHandler eh) {

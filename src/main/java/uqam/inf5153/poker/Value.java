@@ -14,6 +14,7 @@ public enum Value {
     JACK,
     QUEEN,
     KING,
-    INCORRECT
+    INCORRECT;
 }
+
 

@@ -5,26 +5,50 @@ import java.util.List;
 
 public class RulesHandler {
     private List<Combination> combinations;
-    private String endState;
+    private String endgame;
 
     public RulesHandler() {
         combinations = new ArrayList<Combination>();
-        endState = "";
+        endgame = "";
     }
 
     public void determineEndstate(List<Player> players) {
         int numPlayers = players.size();
         for(int i = 0; i < numPlayers; i++) {
-            endState += players.get(i).getName() + Language.PLAYER_HAS + this.combinations.get(i).toString();
+            endgame += players.get(i).getName() + Language.PLAYER_HAS + this.combinations.get(i).toString();
         }
     }
 
     public void determineWinner(List<Player> players) {
-        // Stuff
+        int highestStrength = combinations.get(0).getStrength();
+        Player currentWinner = players.get(0);
+        int numPlayers = players.size();
+        int handsWithHighestStrength = 0;
+
+        for (int i = 1; i < numPlayers; i++) {
+            int currentStrength = combinations.get(i).getStrength();
+            if (highestStrength < currentStrength) {
+                highestStrength = currentStrength;
+                currentWinner = players.get(i);
+            }
+        }
+
+        for (int i = 0; i < numPlayers; i++) {
+            int currentStrength = combinations.get(i).getStrength();
+            if (highestStrength == currentStrength) {
+                handsWithHighestStrength += 1;
+            }
+        }
+
+        if (handsWithHighestStrength > 1) {
+            endgame += Language.TIE + Language.EXCLAMATION;
+        } else {
+            endgame += Language.WINNER + currentWinner.getName() + Language.EXCLAMATION;
+        }
     }
 
-    public String getEndState() {
-        return this.endState;
+    public String getEndgame() {
+        return this.endgame;
     }
 
     public void findStrongestCombination(Player player) {
@@ -40,7 +64,8 @@ public class RulesHandler {
 
 
         if (containsFlush(hand)) {
-            currentCombination = extractFlush(hand);
+            int flushStrength = currentCombination.getStrength();
+            currentCombination = extractFlush(hand, flushStrength);
         }
 
 
@@ -95,6 +120,7 @@ public class RulesHandler {
                     if (!pairFound || valueFound.compareTo(firstCard.getValue()) < 0) {
                         pair.setFirstCard(firstCard);
                         pair.setSecondCard(secondCard);
+                        pair.calculateStrength();
                         pairFound = true;
                         valueFound = firstCard.getValue();
                     }
@@ -122,10 +148,10 @@ public class RulesHandler {
         return isFlush;
     }
 
-    private Flush extractFlush(Hand hand) {
+    private Flush extractFlush(Hand hand, int strength) {
         Card card = hand.getCard(0);
         Color color = card.getColor();
 
-        return new Flush(hand, color);
+        return new Flush(hand, color, strength);
     }
 }
