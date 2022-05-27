@@ -78,7 +78,7 @@ public class ErrorHandler {
 
             for (int j = i + 1; j < handSize; j++) {
                 Card card2 = hand.getCard(j);
-                
+
                 if(!cheated) {
                     if (card.getValue() == card2.getValue() && card.getColor() == card2.getColor()) {
                         cheated = true;
