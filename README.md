@@ -2,7 +2,7 @@
 
   - Auteur : Vincent, Bray (`BRAV20069009`)
   - Date de remise : 29/05/2022
-  - Estimation du temps de travail passé sur le projet : X heures.
+  - Estimation du temps de travail passé sur le projet : 16 heures.
 
 ## Réponses aux questions  
  
@@ -30,15 +30,21 @@ Les tailles de réponses sont données à titre indicatif, mais il est clair qu'
 
 ### Question 3: Justification des choix de conception
 
-_Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum._
+1. J'ai créer plusieurs classes différentes pour représenter différents concepts qui me sont apparus en observant le problème. J'ai débuté par déterminer qu'il me fallait une classe *Carte* pour représenter l'élément de base du jeu de poker. Cette classe contient nécessairement deux classes énumératives pour représenter la couleur et la valeur des cartes. De plus, la classe contient un entier pour représenter le concept de force d'une carte lors de l'analyse des mains jouées. Ainsi, j'ai aussi créé une classe *Main* pour contenir les cartes. Ses mains sont détenues par des joueurs, donc j'ai aussi créé une classe *Joueur* qui contient la main et le nom d'un joueur. Cette architecture permet l'implémentation aisée d'un jeu à *n* joueurs.
 
-_Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum._
+Comme mentionné plus haut j'ai créé une classe *Vérificateur* pour gérer les règles de l'analyse des mains. Nécessairement cela implique une classe *Combinaison*, celle-ci est une classe abstraite, les multiples classes représentant les combinaisons différentes héritent d'elle. J'ai créé une classe similaire nommée *GestionnaireErreur* qui contient la logique d'affaire de gestion des erreurs dans les mains données.
 
-_Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum._
+Pour simplifier le code, j'ai aussi créé une classe *ÉtatDeJeu* qui représente la validité du jeu et une classe *Language* qui contient mes constantes de texte.
+---
+2. Mon code respecte le principe de responsabilité unique card chaque concept identifié encapsule la logique d'affaire qui lui est propre. Ainsi, un joueur n'est qu'un joueur et ne faire que ce qu'un joueur peut faire. De même, le vérificateur s'occupe d'analyser et de comparer alors que le gestionnaire d'erreurs lui ne gère que les erreurs.
+
+Mon code respecte le principe de substitution de liskov. Chaque méthode appelé par mes sous-classes sont définies par les classes dont elles héritent. De plus, les types statiques utilisé sont ceux de leurs généralisation, par exemple: *Flush* est contenu dans une variable *Combinaison* et mes listes chainées sont contenu dans des variables typées comme étant simplement une liste.
+---
+3. Mon code pourrait nécessairement être amélioré. Je crois qu'une partie de la logique d'affaire contenu par le vérificateur pourrait être déleguer aux combinaisons elles-mêmes. Je crois que si je m'y attardais plus longtemps je pourrait trouver une solution plus simple et élégante que la notion actuelle de *force* pour comparer les mains. Je crois pouvoir rendre le code plus clair avec encore plus de réusinage.
 
 ### Question 4: Évolution du code objet
 
-_Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum._
+Pour ajouter le brelan dans ma conception il suffit de créer une sous-classe de *Combinaison* qui représente un brelan. Par contre, avec ma conception actuelle la logique d'affaire pour reconnaitre un brelan devra être implémentée dans la classe *Vérificateur*, donc ma conception ne respecte que partiellement le principe Ouvert/Fermé. Comme cité plus haut, c'est une des facettes sur laquelle ma conception pourrait être retravaillée.
 
 ## Auto-évaluation (optionnelle)
 
@@ -48,14 +54,14 @@ Vous êtes libre de faire l'exercice de vous auto-évaluer en remplissant la gri
 | :---:           | :---                                       | :---: |
 |  _Questions_    | (#1) Évolution du code légataire           |  5/5  |
 |                 | (#2) Analyse des défauts du code légataire | 10/10 |
-|                 | (#3) Justification des choix de conception | /15   |
-|                 | (#4) Évolution du code objet               | /5    |
-|  _Modèles_      | Justesse & Pertinence de la conception     | /15   |
-|                 | Cohérence inter-modèles                    | /5    |
-|                 | Respect des principes de conception        | /15   |
-|  _Code_         | Qualité du code Java et du dépôt Git       | /10   |
-|                 | Cohérence du code avec les modèles         | /10   | 
-|                 | Qualité des tests                          | /10   |  
-| **Note Finale** |                                            | /100  | 
+|                 | (#3) Justification des choix de conception | 15/15 |
+|                 | (#4) Évolution du code objet               |  5/5  |
+|  _Modèles_      | Justesse & Pertinence de la conception     | 11/15 |
+|                 | Cohérence inter-modèles                    |  5/5  |
+|                 | Respect des principes de conception        | 11/15 |
+|  _Code_         | Qualité du code Java et du dépôt Git       |  8/10 |
+|                 | Cohérence du code avec les modèles         |  8/10 | 
+|                 | Qualité des tests                          |  8/10 |  
+| **Note Finale** |                                            | 86/100| 
 
 _Cette auto-évaluation permet au correcteur de vous donner une rétro-action plus personnalisée en pointant les critères sur lesquels vous vous sur-évaluez et ceux sur lesquels au contraire vous vous sous-évaluez._
