@@ -9,10 +9,17 @@ public class HighVal extends Combination{
         this.strength = 100 + card.getStrength();
     }
 
+    /**
+     * Getter.
+     */
     public int getStrength() {
         return strength;
     }
 
+    /**
+     * Outputs a string.
+     * @return a formatted string representing the highest value card
+     */
     @Override
     public String toString() {
         return Language.HIGH_VAL + card.getValue() + Language.DOT;

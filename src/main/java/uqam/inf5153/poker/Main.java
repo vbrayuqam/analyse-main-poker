@@ -6,8 +6,6 @@ import java.util.*;
  */
 public class Main {
 
-    // The result of the game
-
     static String endMessage;
 
     /**
@@ -37,6 +35,12 @@ public class Main {
         System.out.println(endMessage);
     }
 
+    /**
+     * Determines the end state of the game.
+     * @param players The list of players in the game
+     * @param rh A reference to the rules handler
+     * @return a string representing the end state of the game
+     */
     private static String determineEndgameState(List<Player> players, RulesHandler rh) {
         String endgame;
         int numPlayers = players.size();
@@ -52,6 +56,12 @@ public class Main {
         return endgame;
     }
 
+    /**
+     * Dertemines if one the players has a hand that invalidates the game.
+     * @param players The list of players in the game
+     * @param eh A reference to the error handler
+     * @return the state of the game, whether it is valid or invalid
+     */
     private static GameState determineGameValidity(List<Player> players, ErrorHandler eh) {
         GameState gameState = GameState.VALID;
         int numplayers = players.size();
@@ -82,6 +92,11 @@ public class Main {
         return gameState;
     }
 
+    /**
+     * Reads the arguments given and generates the players accordingly.
+     * @param args A list of string, each string containing the data for the associated player's hand
+     * @return the list of players
+     */
     private static List<Player> generatePlayersFromArguments(String[] args) {
         List<Player> players =  new ArrayList<Player>();
 
@@ -97,6 +112,10 @@ public class Main {
         return players;
     }
 
+    /**
+     * Reads the inputs from the terminal and generates the players accordingly.
+     * @return the list of players
+     */
     private static List<Player> generatePlayersFromInput() {
         List<Player> players =  new ArrayList<Player>();
         Scanner sc = new Scanner(System.in);

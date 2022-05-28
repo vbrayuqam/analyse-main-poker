@@ -12,10 +12,17 @@ public class Flush extends Combination {
         this.strength = 600 + strength;
     }
 
+    /**
+     * Getter.
+     */
     public int getStrength() {
         return strength;
     }
 
+    /**
+     * Outputs a string
+     * @return a formatted string representing the flush
+     */
     @Override
     public String toString() {
         return Language.FLUSH + color + Language.DOT;

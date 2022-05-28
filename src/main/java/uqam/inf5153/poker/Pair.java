@@ -9,6 +9,9 @@ public class Pair extends Combination{
     public Pair() {
     }
 
+    /**
+     * Getters.
+     */
     public Card getFirstCard() {
         return firstCard;
     }
@@ -21,6 +24,9 @@ public class Pair extends Combination{
         return strength;
     }
 
+    /**
+     * Setters.
+     */
     public void setFirstCard(Card firstCard) {
         this.firstCard = firstCard;
     }
@@ -29,10 +35,17 @@ public class Pair extends Combination{
         this.secondCard = secondCard;
     }
 
+    /**
+     * Calculates the strength of the pair.
+     */
     public void calculateStrength() {
         this.strength = 200 + firstCard.getStrength();
     }
 
+    /**
+     * Outputs a string
+     * @return a formatted string representing the pair
+     */
     @Override
     public String toString() {
         return Language.PAIR + firstCard.getValue().toString() + Language.DOT;

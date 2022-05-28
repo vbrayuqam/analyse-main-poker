@@ -11,6 +11,9 @@ public class Card {
         this.strength = extractStrength(textCard.charAt(0));
     }
 
+    /**
+     * Getters.
+     */
     public Color getColor() {
         return color;
     }
@@ -23,6 +26,11 @@ public class Card {
         return strength;
     }
 
+    /**
+     * Extracts a Color from a formatted string.
+     * @param colorChar a char that represents the value of a card
+     * @return the Color
+     */
     private static Color extractColor(char colorChar) {
         Color color;
         switch (colorChar) {
@@ -44,6 +52,11 @@ public class Card {
         return color;
     }
 
+    /**
+     * Extracts a Value from a formatted string.
+     * @param valueChar a char that represents the value of a card
+     * @return the Value
+     */
     private static Value extractValue(char valueChar) {
         Value value = null;
         switch (valueChar)
@@ -93,6 +106,11 @@ public class Card {
         return value;
     }
 
+    /**
+     * Extracts a strength from a formatted string.
+     * @param valueChar a char that represents the value of a card
+     * @return an int representing the strength
+     */
     private int extractStrength(char valueChar) {
         int strength;
         switch (valueChar)

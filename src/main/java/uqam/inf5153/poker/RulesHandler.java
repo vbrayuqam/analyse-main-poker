@@ -12,6 +12,10 @@ public class RulesHandler {
         endgame = "";
     }
 
+    /**
+     * Determines the end state of a game of poker.
+     * @param players the players whose hands require analyzing
+     */
     public void determineEndstate(List<Player> players) {
         int numPlayers = players.size();
         for(int i = 0; i < numPlayers; i++) {
@@ -19,6 +23,10 @@ public class RulesHandler {
         }
     }
 
+    /**
+     * Determines the winner or lack of winner in a game of poker.
+     * @param players the players whose hands require analyzing
+     */
     public void determineWinner(List<Player> players) {
         int highestStrength = combinations.get(0).getStrength();
         Player currentWinner = players.get(0);
@@ -47,10 +55,17 @@ public class RulesHandler {
         }
     }
 
+    /**
+     * Getter.
+     */
     public String getEndgame() {
         return this.endgame;
     }
 
+    /**
+     * Finds the strongest combination that a player has.
+     * @param player the player whose hand requires analyzing
+     */
     public void findStrongestCombination(Player player) {
         Combination currentCombination;
         Hand hand = player.getHand();
@@ -72,6 +87,11 @@ public class RulesHandler {
         this.combinations.add(currentCombination);
     }
 
+    /**
+     * Extracts the highest value card from a hand.
+     * @param hand the hand that requires the extraction
+     * @return a HighVal representing the highest value card
+     */
     private HighVal extractHighVal(Hand hand) {
         int handSize = hand.getNumOfCards();
         Card currentHighVal = hand.getCard(0);
@@ -87,6 +107,11 @@ public class RulesHandler {
         return new HighVal(currentHighVal);
     }
 
+    /**
+     * Determines if a hand contains a pair.
+     * @param hand the hand that requires analyzing
+     * @return a boolean that indicates if the hand contains a pair
+     */
     private boolean containsPair(Hand hand) {
         boolean hasPair = false;
         int handSize = hand.getNumOfCards();
@@ -105,6 +130,11 @@ public class RulesHandler {
         return hasPair;
     }
 
+    /**
+     * Extracts the strongest Pair from a hand.
+     * @param hand the hand that requires the extraction
+     * @return the strongest Pair in the hand
+     */
     private Pair extractPair(Hand hand) {
         int handSize = hand.getNumOfCards();
         Pair pair = new Pair();
@@ -131,6 +161,11 @@ public class RulesHandler {
         return pair;
     }
 
+    /**
+     * Determines if a hand contains a flush.
+     * @param hand the hand that requires analyzing
+     * @return a boolean that indicates if the hand contains a flush
+     */
     private boolean containsFlush(Hand hand) {
         boolean isFlush = true;
 
@@ -148,6 +183,11 @@ public class RulesHandler {
         return isFlush;
     }
 
+    /**
+     * Extracts a flush from a hand.
+     * @param hand the hand that requires the extraction
+     * @return a Flush
+     */
     private Flush extractFlush(Hand hand, int strength) {
         Card card = hand.getCard(0);
         Color color = card.getColor();

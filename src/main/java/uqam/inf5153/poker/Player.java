@@ -9,6 +9,9 @@ public class Player {
         this.hand = new Hand();
     }
 
+    /**
+     * Getters.
+     */
     public Hand getHand() {
         return this.hand;
     }
@@ -17,6 +20,10 @@ public class Player {
         return this.name;
     }
 
+    /**
+     * Take a card in order to add it to your hand.
+     * @param card the card that is to be taken
+     */
     public void takeCard(Card card) {
         this.hand.addCard(card);
     }

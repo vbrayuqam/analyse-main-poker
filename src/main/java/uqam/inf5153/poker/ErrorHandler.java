@@ -7,10 +7,18 @@ public class ErrorHandler {
     public ErrorHandler() {
     }
 
+    /**
+     * Getter.
+     */
     public String getErrorMsg() {
         return errorMsg;
     }
 
+    /**
+     * Determines if a player's hand is too big.
+     * @param player the player whose hand's requires validation
+     * @return a boolean that indicates if the hand is too big
+     */
     public boolean verifyBigHand(Player player) {
         boolean isBig = false;
         Hand hand = player.getHand();
@@ -23,6 +31,11 @@ public class ErrorHandler {
         return isBig;
     }
 
+    /**
+     * Determines if a player's hand is too small.
+     * @param player the player whose hand requires validation
+     * @return a boolean that indicates if the hand is too small
+     */
     public boolean verifySmallHand(Player player) {
         boolean isSmall = false;
         Hand hand = player.getHand();
@@ -35,7 +48,11 @@ public class ErrorHandler {
         return isSmall;
     }
 
-
+    /**
+     * Determines if the colors in a player's hand are valid.
+     * @param player the player whose hand requires validation
+     * @return a boolean that indicates if the hand contains an issue
+     */
     public boolean verifyColor(Player player) {
         boolean badColor = false;
         Hand hand = player.getHand();
@@ -52,6 +69,11 @@ public class ErrorHandler {
         return badColor;
     }
 
+    /**
+     * Determines if the values in a player's hand are valid.
+     * @param player the player whose hand requires validation
+     * @return a boolean that indicates if the hand contains an issue
+     */
     public boolean verifyValue(Player player) {
         boolean badValue = false;
         Hand hand = player.getHand();
@@ -68,6 +90,11 @@ public class ErrorHandler {
         return badValue;
     }
 
+    /**
+     * Determines if a player's hand contains multiples of a same card.
+     * @param player the player whose hand requires validation
+     * @return a boolean that indicates if the hand contains an issue
+     */
     public boolean verifyCheating(Player player) {
         boolean cheated = false;
         Hand hand = player.getHand();
@@ -90,5 +117,4 @@ public class ErrorHandler {
 
         return cheated;
     }
-
 }
