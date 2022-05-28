@@ -21,16 +21,5 @@ public class Hand {
     public int getNumOfCards() {
         return cards.size();
     }
-
-    @Override
-    public String toString() {
-        String handString = "";
-
-        for (int i = 0; i < cards.size(); i ++) {
-            handString += cards.get(i);
-        }
-
-        return handString;
-    }
 }
 

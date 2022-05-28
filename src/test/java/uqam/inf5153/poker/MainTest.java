@@ -1,18 +1,13 @@
 package uqam.inf5153.poker;
 
-
 import static org.junit.Assert.*;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class MainTest {
 
 
     @Before public void initResult() { Main.endMessage = null; }
-
-    // P1 Wins
 
     @Test public void p1F_p2H() {
         String p1 = "2D 5D QD KD 7D";
@@ -35,7 +30,6 @@ public class MainTest {
         assertEquals("P1 had a flush of DIAMONDS. P2 had a flush of HEARTS. \nHence, the winner is P1! ", Main.endMessage);
     }
 
-    // P2 Wins
 
     @Test public void p2F_p1H() {
         String p1 = "1S 4C KH TD 3S";
@@ -58,8 +52,6 @@ public class MainTest {
         assertEquals("P1 had a flush of HEARTS. P2 had a flush of DIAMONDS. \nHence, the winner is P2! ", Main.endMessage);
     }
 
-    // Tie cases
-
     @Test public void tie_F() {
         String p1 = "3H 8H JH KH 7H";
         String p2 = "2D 5D QD KD 7D";
@@ -80,8 +72,6 @@ public class MainTest {
         Main.main(new String[] {p1, p2});
         assertEquals("P1 had a JACK. P2 had a JACK. \nHence, the game ends in a tie! ", Main.endMessage);
     }
-
-    // Error cases
 
     @Test public void tooManyCards() {
         String p1 = "3H 8H JH KH 7H 7C";
@@ -110,8 +100,6 @@ public class MainTest {
         Main.main(new String[] {p1, p2});
         assertEquals("There was an error with the hands given. P2 had a card of a wrong color in his hand. ", Main.endMessage);
     }
-
-    // Extension : Detect cheating
 
     @Test public void sameCardTwice() {
         String p1 = "3H 8H JH KH 7H";

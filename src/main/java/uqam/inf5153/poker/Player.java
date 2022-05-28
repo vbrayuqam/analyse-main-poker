@@ -20,9 +20,4 @@ public class Player {
     public void takeCard(Card card) {
         this.hand.addCard(card);
     }
-
-    @Override
-    public String toString() {
-        return hand.toString();
-    }
 }

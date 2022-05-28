@@ -23,12 +23,6 @@ public class Card {
         return strength;
     }
 
-    @Override
-    public String toString() {
-        String cardString = "";
-        return color.toString() + value.toString();
-    }
-
     private static Color extractColor(char colorChar) {
         Color color;
         switch (colorChar) {
