@@ -6,7 +6,6 @@ import org.junit.Test;
 
 public class MainTest {
 
-
     @Before public void initResult() { Main.endMessage = null; }
 
     @Test public void p1F_p2H() {

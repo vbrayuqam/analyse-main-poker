@@ -7,7 +7,6 @@ import org.junit.Test;
 
 public class CardTest {
 
-
     @Test public void getColor() {
         Card card = new Card("1D");
         assertEquals(Color.DIAMONDS, card.getColor());

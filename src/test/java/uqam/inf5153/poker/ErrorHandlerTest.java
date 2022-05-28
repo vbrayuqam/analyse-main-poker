@@ -72,7 +72,6 @@ public class ErrorHandlerTest {
         assertEquals(true, result);
     }
 
-    @Ignore
     @Test public void verifyColorFail() {
         Player player = new Player("test");
         player.takeCard(new Card("1D"));
@@ -81,7 +80,6 @@ public class ErrorHandlerTest {
         assertEquals(false, result);
     }
 
-    @Ignore
     @Test public void verifyValueFail() {
         Player player = new Player("test");
         player.takeCard(new Card("1D"));
