@@ -2,7 +2,7 @@
 
   - Auteur : Vincent, Bray (`BRAV20069009`)
   - Date de remise : 29/05/2022
-  - Estimation du temps de travail passé sur le projet : 16 heures.
+  - Estimation du temps de travail passé sur le projet : 18 heures.
 
 ## Réponses aux questions  
  
